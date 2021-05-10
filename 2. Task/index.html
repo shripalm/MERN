@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <center>
+        <input type="number" onchange="armstrong(this)"><br>
+        <span id="result"></span>
+    </center>
+    <script>
+        const armstrong = function(givenValue) {
+            let n = givenValue.value,
+                dup = n,
+                addition = 0,
+                modulo;
+            do {
+                modulo = parseInt(dup % 10);
+                addition += (modulo * modulo * modulo)
+                dup /= 10;
+                modulo = parseInt(dup % 10);
+            } while (modulo !== 0);
+            if (n == addition) document.querySelector('#result').innerHTML = 'Number is an ARMSTRONG';
+            else document.querySelector('#result').innerHTML = 'Number is not an ARMSTRONG';
+        };
+    </script>
+</body>
+
+</html>
