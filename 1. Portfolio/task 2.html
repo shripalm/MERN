@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            font-family: cursive;
+        }
+        
+        body {
+            background: linear-gradient(119deg, rgba(251, 251, 255, 0) 0%, rgba(209, 209, 226, 1) 45%, rgba(151, 159, 161, 0) 100%);
+            background-repeat: no-repeat;
+            min-width: 100vw;
+            min-height: 100vh;
+        }
+        
+         ::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .static,
+        .dynamic {
+            height: 300px;
+            width: 300px;
+            max-width: 95vmin;
+            max-height: 95vmin;
+            transition: 0.5s;
+        }
+        
+        .static:hover,
+        .dynamic:hover {
+            cursor: pointer;
+            opacity: 0.7;
+            box-shadow: 0 0 4px black;
+            border-radius: 10px;
+            height: 305px;
+            width: 305px;
+        }
+        
+        #container {
+            text-align: center;
+        }
+        
+        #selctorSec {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        button {
+            color: white;
+            background-color: brown;
+            border: 0;
+            padding: 10px 0px;
+            min-width: 100px;
+            font-size: 18px;
+            border-radius: 10px;
+            font-weight: bolder;
+            transition: 0.5s;
+        }
+        
+        button:hover {
+            opacity: 0.7;
+            cursor: pointer;
+        }
+        
+        hr {
+            width: 50vmax;
+            max-width: 85vw;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 0;
+            background-color: black;
+            height: 1px;
+        }
+        
+        #overlay {
+            height: 100vh;
+            width: 100vw;
+            display: none;
+            background-color: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            top: 0;
+            left: 0;
+            color: white;
+            z-index: 1;
+        }
+        
+        #selectImgHere {
+            width: 600px !important;
+            height: 600px !important;
+            max-width: 95vmin !important;
+            max-height: 95vmin !important;
+        }
+        
+        #imageHolder {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="overlay" onclick="this.style.display = 'none'">
+            <div id="imageHolder">
+                <img src="" alt="" id="selectImgHere">
+                <h1 id="title"></h1>
+            </div>
+        </div>
+        <div id="selctorSec">
+            <button onclick="filterImg('All', this)">All</button>
+            <button onclick="filterImg('Static', this)">Static</button>
+            <button onclick="filterImg('Dynamic', this)">Dynamic</button>
+        </div>
+        <hr><br>
+        <img src="https://picsum.photos/300" class="static" onclick="imgSelect(this)" alt="😉">
+        <img src="https://picsum.photos/400" class="dynamic" onclick="imgSelect(this)" alt="😃">
+        <img src="https://picsum.photos/500" class="static" onclick="imgSelect(this)" alt="😁">
+        <img src="https://picsum.photos/600" class="dynamic" onclick="imgSelect(this)" alt="😂">
+        <img src="https://picsum.photos/700" class="static" onclick="imgSelect(this)" alt="🤗">
+        <img src="https://picsum.photos/800" class="dynamic" onclick="imgSelect(this)" alt="🙄">
+        <img src="https://picsum.photos/900" class="static" onclick="imgSelect(this)" alt="😯">
+        <img src="https://picsum.photos/1000" class="dynamic" onclick="imgSelect(this)" alt="🥱">
+        <img src="https://picsum.photos/1100" class="static" onclick="imgSelect(this)" alt="😛">
+        <img src="https://picsum.photos/1200" class="dynamic" onclick="imgSelect(this)" alt="😏">
+        <img src="https://picsum.photos/1300" class="static" onclick="imgSelect(this)" alt="😜">
+        <img src="https://picsum.photos/1400" class="dynamic" onclick="imgSelect(this)" alt="😴">
+        <img src="https://picsum.photos/1500" class="static" onclick="imgSelect(this)" alt="🤑">
+        <img src="https://picsum.photos/1600" class="dynamic" onclick="imgSelect(this)" alt="🤒">
+        <img src="https://picsum.photos/1700" class="static" onclick="imgSelect(this)" alt="🤨">
+        <img src="https://picsum.photos/1800" class="dynamic" onclick="imgSelect(this)" alt="🤠">
+    </div>
+</body>
+<script>
+    document.querySelector('button').click();
+
+    function filterImg(choice, thisDOM) {
+        let static = document.querySelectorAll('.static');
+        let dynamic = document.querySelectorAll('.dynamic');
+        operation(static, '');
+        operation(dynamic, '');
+        buttonInit();
+        if (choice == 'Static') operation(dynamic, 'none');
+        if (choice == 'Dynamic') operation(static, 'none');
+        thisDOM.style.backgroundColor = 'black';
+    }
+
+    function operation(data, todo) {
+        for (let i = 0; i < data.length; i++) {
+            data[i].style.display = todo || '';
+        }
+    }
+
+    function buttonInit() {
+        let buttons = document.querySelectorAll('button');
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].style.backgroundColor = 'brown';
+        }
+    }
+
+    function imgSelect(selectedImg) {
+        document.querySelector('#overlay').style.display = 'flex';
+        document.querySelector('#selectImgHere').src = selectedImg.src;
+        document.querySelector('#selectImgHere').alt = selectedImg.alt;
+        document.querySelector('#title').innerHTML = selectedImg.alt;
+    }
+</script>
+
+</html>

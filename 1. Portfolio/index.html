@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <span class="name">Shripal KM</span>
+        <br>
+        <span class="objective">Portfolio</span>
+        <br>
+        <span class="desig">Web developer + designer</span>
+        <hr>
+        <br>
+        <span class="btn" id="aboutBtn" onclick="show('about')">about</span>
+        <span class="btn" id="skillBtn" onclick="show('skill')">skill</span>
+        <span class="btn" id="contactBtn" onclick="show('contact')">contact</span>
+    </div>
+    <div class="hidden" id="aboutData" onclick="hide('about')">
+        <div class="middle aboutCont">
+            <span>
+                HELLO EVERYONE, MYSELF SHRIPAL.<br><br> I DID COMPLETE MY DIPLOMA IN COMPUTER SCIENCE FROM RC TECHNICAL INSTITUTE.<br><br> CURRENTLY, I'm IN 6TH SEM OF BACHELOR'S IN CE.
+            </span>
+        </div>
+    </div>
+    <div class="hidden" id="contactData" onclick="hide('contact')">
+        <div class="middle">
+            <span>
+                <b>Email</b><br>
+                <a href="mailto:shripal.nextstep@gmail.com">shripal.nextstep@gmail.com</a>
+            </span>
+            <br><br>
+            <span>
+                <b>Mobile</b><br>
+                <a href="tel:917990662556">+917990662556</a>
+            </span>
+            <br><br>
+            <hr><br>
+            <a href=""><i class="fa fa-instagram"></i></a>
+            <a href=""><i class="fa fa-facebook"></i></a>
+            <a href=""><i class="fa fa-whatsapp"></i></a>
+            <a href=""><i class="fa fa-twitter"></i></a>
+            <a href=""><i class="fa fa-linkedin"></i></a>
+            <a href=""><i class="fa fa-github"></i></a>
+        </div>
+    </div>
+    <div class="hidden" id="skillData" onclick="hide('skill')">
+        <div class="middle">
+            <div class="skillSet">
+                <span>HTML</span><br>
+                <span>CSS</span><br>
+                <span>bootstrap</span><br>
+                <span>javascript</span><br>
+                <span>jquery</span><br>
+                <span>Ajax</span><br>
+                <span>php</span><br>
+                <span>mysql</span><br>
+                <span>REST api</span><br>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+
+</html>
