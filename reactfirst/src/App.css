@@ -1,0 +1,50 @@
+body{
+  margin: 0;
+  background-image: url('https://picsum.photos/1920/1080');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+    font-weight: bolder;
+    font-size: 28px;
+}
+.contentHere{
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.contentHere>button{
+  border: 1px solid #007bff;
+  padding: 10px 20px;
+  background-color: transparent;
+  border-radius: 5px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 5px;
+  transition: 0.4s;
+}
+.contentHere>button:hover{
+  background-color: #007bff;
+  border-radius: 6px;
+  color: white;
+  box-shadow: #007bff 0px 0px 3px;
+  animation: btnAnimate 0.5s linear;
+}
+@keyframes btnAnimate {
+  0% {
+    transform: rotate(5deg);
+  }
+  33% {
+    transform: rotate(-5deg);
+  }
+  66%{
+    transform: rotate(5deg);
+  }
+  100%{
+    transform: rotate(0deg);
+  }
+}
