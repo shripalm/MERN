@@ -1,8 +1,11 @@
-const express = require('express')
+const app = require('express')()
 const bodyParser = require('body-parser')
 const mysql = require('mysql')
+const cors = require('cors')
+const PORT = 5000
 
-const app = express()
+app.use(cors({ origin: 'http://localhost:3000' }))
+app.use(bodyParser.json())
 
 const dbConn = mysql.createConnection({
     host: "localhost",
@@ -13,63 +16,66 @@ const dbConn = mysql.createConnection({
 
 dbConn.connect((dbErr) => {
     if (dbErr) console.log(dbErr);
-    else app.listen(5000, (err) => { console.log(err || 'Listining') })
+    else app.listen(PORT, (err) => { console.log(err || 'Listining') })
 })
-
-app.use(bodyParser.json());
 
 function response(res, code, message) {
     res.json({
-        "code": code,
-        "message": message
+        "success": code,
+        "msg": message
     })
-    res.end();
+    res.end()
 }
 
 app.post('/registration', (req, res) => {
     const { firstname, lastname, email, password } = req.body
-    dbConn.query(`select *from userdata where email='${email}'`, (queryErr, result, fields) => {
-        if (queryErr) console.log(queryErr);
-        else {
-            if (result.length > 0) response(res, 400, "Dummy record");
+    if(password.length<8) response(res, false, "Password must be greater than 8 characters")
+    else{
+        dbConn.query(`select *from userdata where email='${email}'`, (queryErr, result, fields) => {
+            if (queryErr) console.log(queryErr)
             else {
-                dbConn.query(`INSERT INTO userdata( firstname, lastname, email, password) VALUES ('${firstname}','${lastname}','${email}','${password}')`, (queryErr) => {
-                    if (queryErr) console.log(queryErr);
-                    else response(res, 200, "Success");
-                })
+                if (result.length > 0) response(res, false, "Email is already in use")
+                else {
+                    dbConn.query(`INSERT INTO userdata( firstname, lastname, email, password) VALUES ('${firstname}','${lastname}','${email}','${password}')`, (queryErr) => {
+                        if (queryErr) console.log(queryErr)
+                        else response(res, true, "Registration successful")
+                    })
+                }
             }
-        }
-    })
+        })
+    }
 })
 
 app.post('/login', (req, res) => {
     const { email, password } = req.body
-    dbConn.query(`select *from userdata where email='${email}'`, (queryErr, result, fields) => {
-        if (queryErr) console.log(queryErr);
-        else {
-            if (result.length == 0) response(res, 400, "Email not registered");
+    if(password.length<8) response(res, false, "Password must be greater than 8 characters")
+    else{
+        dbConn.query(`select *from userdata where email='${email}'`, (queryErr, result, fields) => {
+            if (queryErr) console.log(queryErr)
             else {
-                dbConn.query(`select *from userdata where email='${email}' AND password='${password}'`, (queryErr, result, fields) => {
-                    if (queryErr) console.log(queryErr);
-                    else {
-                        if (result.length == 0) response(res, 400, "Email and password is invalid");
-                        else response(res, 200, { 'id': result[0].id });
-
-                    }
-                })
+                if (result.length == 0) response(res, false, "Email not registered")
+                else {
+                    dbConn.query(`select *from userdata where email='${email}' AND password='${password}'`, (queryErr, result, fields) => {
+                        if (queryErr) console.log(queryErr)
+                        else {
+                            if (result.length == 0) response(res, false, "Email and password is invalid")
+                            else response(res, true, { 'id': result[0].id });
+                            
+                        }
+                    })
+                }
             }
-        }
-    })
+        })
+    }
 })
 
 app.get('/getData/:id', (req, res) => {
-    // if (!req.body.id) response(res, 400, "Enter Id");
     const { id } = req.params
-    dbConn.query(`select *from userdata where id=${id}`, (queryErr, result, fields) => {
-        if (queryErr) console.log(queryErr);
+    dbConn.query(`select firstname,lastname,regdate,email from userdata where id=${id}`, (queryErr, result, fields) => {
+        if (queryErr) console.log(queryErr)
         else {
-            if (result.length == 0) response(res, 400, "Not valid id");
-            else response(res, 200, result[0]);
+            if (result.length == 0) response(res, false, "Not valid id")
+            else response(res, true, result[0])
         }
     })
 })
