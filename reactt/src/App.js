@@ -14,53 +14,73 @@ function App() {
     const [lPassword, lSetPassword] = useState('')
     function login(e) {
         e.preventDefault();
-        axios.post(apiUrl+'login', {
-            email: lEmail,
-            password: lPassword
-        }).then(res => {
-            if(res.data.success) {
-                setMessage('Hey man! your id is '+res.data.msg.id)
-                document.getElementById('message').style.color = "white"
-                rSetFirstname("")
-                rSetLastname("")
-                rSetEmail("")
-                rSetPassword("")
-                lSetEmail("")
-                lSetPassword("")
-            }
-            else {
-                setMessage(res.data.msg)
-                document.getElementById('message').style.color = "black"
-            }
-        }).catch(err => {
-            console.log(err);
-        })
+        if(lEmail.trim().length < 4) {
+            setMessage("Email must be greater than 4 letters")
+            document.getElementById('message').style.color = "red"
+        }
+        else{
+            axios.post(apiUrl+'login', {
+                email: lEmail,
+                password: lPassword
+            }).then(res => {
+                if(res.data.success) {
+                    setMessage('Hey man! your id is '+res.data.msg.id)
+                    document.getElementById('message').style.color = "green"
+                    rSetFirstname("")
+                    rSetLastname("")
+                    rSetEmail("")
+                    rSetPassword("")
+                    lSetEmail("")
+                    lSetPassword("")
+                }
+                else {
+                    setMessage(res.data.msg)
+                    document.getElementById('message').style.color = "red"
+                }
+            }).catch(err => {
+                console.log(err);
+            })
+        }
     }
     function register(e) {
         e.preventDefault();
-        axios.post(apiUrl+'registration', {
-            firstname: rFirstname,
-            lastname: rLastname,
-            email: rEmail,
-            password: rPassword
-        }).then(res => {
-            if(res.data.success) {
-                setMessage(res.data.msg)
-                document.getElementById('message').style.color = "white"
-                rSetFirstname("")
-                rSetLastname("")
-                rSetEmail("")
-                rSetPassword("")
-                lSetEmail("")
-                lSetPassword("")
-            }
-            else {
-                setMessage(res.data.msg)
-                document.getElementById('message').style.color = "black"
-            }
-        }).catch(err => {
-            console.log(err);
-        })
+        if(rFirstname.trim().length < 1) {
+            setMessage("Firstname must be greater than 1 letters")
+            document.getElementById('message').style.color = "red"
+        }
+        else if(rLastname.trim().length < 1) {
+            setMessage("Lastname must be greater than 1 letters")
+            document.getElementById('message').style.color = "red"
+        }
+        else if(rEmail.trim().length < 4) {
+            setMessage("Email must be greater than 4 letters")
+            document.getElementById('message').style.color = "red"
+        }
+        else{
+            axios.post(apiUrl+'registration', {
+                firstname: rFirstname,
+                lastname: rLastname,
+                email: rEmail,
+                password: rPassword
+            }).then(res => {
+                if(res.data.success) {
+                    setMessage(res.data.msg)
+                    document.getElementById('message').style.color = "green"
+                    rSetFirstname("")
+                    rSetLastname("")
+                    rSetEmail("")
+                    rSetPassword("")
+                    lSetEmail("")
+                    lSetPassword("")
+                }
+                else {
+                    setMessage(res.data.msg)
+                    document.getElementById('message').style.color = "red"
+                }
+            }).catch(err => {
+                console.log(err);
+            })
+        }
     }
     if (functionality == 'register') {
         return (
