@@ -24,7 +24,7 @@ function response(res, code, message) {
         "success": code,
         "msg": message
     })
-    res.end()
+    // res.end()
 }
 
 app.post('/registration', (req, res) => {
