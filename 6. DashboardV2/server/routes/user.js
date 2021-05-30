@@ -1,10 +1,10 @@
 const router = require('express').Router()
-const userSchema = require('../model/User')
-const { registerUser, loginUser, validateUser } = require('../functions/userFunctions')
+const { registerUser, loginUser, validateUser, getUserDetails } = require('../functions/userFunctions')
 const { sign } = require('jsonwebtoken')
 const { secret } = require('../config/envExport')
-const { returnFromBody } = require('../functions/globalFunctions')
+const { returnFromBody, tokenToId } = require('../functions/globalFunctions')
 const { getAllProducts } = require('../functions/productFunctions')
+const { orderProduct, getOrderOfUser } = require('../functions/orderFunctions')
 
 router.post('/register', async(req, res) => {
     let retObject = returnFromBody(['userName', 'number', 'email', 'password'], req.body)
@@ -35,6 +35,24 @@ router.post('/login', async(req, res) => {
 
 router.post('/listProducts', validateUser, async(req, res) => {
     res.json(await getAllProducts())
+})
+
+router.post('/viewDetails', validateUser, async(req, res) => {
+    res.json(await getUserDetails(tokenToId(req)))
+})
+
+router.post('/orderProduct', validateUser, async(req, res) => {
+    let retObject = returnFromBody(['pid', 'paymentMethod'], req.body)
+    if (!retObject.success) {
+        res.json({ success: false, msg: retObject.data + ' is Required' })
+    } else {
+        const { pid, paymentMethod } = retObject.data
+        res.json(await orderProduct(tokenToId(req), pid, paymentMethod))
+    }
+})
+
+router.post('/viewMyOrders', validateUser, async(req, res) => {
+    res.json(await getOrderOfUser(tokenToId(req)))
 })
 
 module.exports = router

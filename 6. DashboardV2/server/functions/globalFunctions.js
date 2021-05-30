@@ -1,3 +1,6 @@
+const { verify } = require('jsonwebtoken')
+const { secret } = require('../config/envExport')
+
 function returnFromBody(want, body) {
     let retObject = {}
     let checker = -1
@@ -13,6 +16,13 @@ function returnFromBody(want, body) {
     return { success: true, data: retObject }
 }
 
+function tokenToId(req){
+    let bearerToken = req.headers.authorization.split(" ")[1];
+    var confirmation = verify(bearerToken, secret)
+    return confirmation.id
+}
+
 module.exports = {
-    returnFromBody
+    returnFromBody,
+    tokenToId
 }

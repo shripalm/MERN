@@ -33,3 +33,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/user', require('./routes/user'))
+
+app.use('/api/admin', require('./routes/admin'))
+
+app.use('/api/seller', require('./routes/seller'))

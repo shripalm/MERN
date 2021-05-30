@@ -29,6 +29,10 @@ var productSchema = Schema({
         type: String,
         required: true
     },
+    sellerID:{
+        type:String,
+        required: true
+    }
 }, {
     timestamps: true
 })

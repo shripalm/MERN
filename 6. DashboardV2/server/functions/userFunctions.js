@@ -44,8 +44,32 @@ const validateUser = async(req, res, next) => {
     else next()
 }
 
+const getUserDetails = async(_id) => {
+    return await userSchema.findById(_id, { password: false }).then(response => {
+        return ({ success: true, msg: "Here's your details", data: response })
+    }).catch(err => {
+        return ({ success: false, msg: err.message })
+    })
+}
+
+const deleteUser = async(_id) => {
+    return await userSchema.findByIdAndDelete(_id).then(response => {
+        return ({ success: true, msg: "User is deleted", data: response })
+    }).catch(err => {
+        return ({ success: false, msg: err.message })
+    })
+}
+
+async function getAllUsers() {
+    const response = await userSchema.find()
+    return ({ success: true, msg: response.length + ' Users Found', data: response })
+}
+
 module.exports = {
     registerUser,
     loginUser,
-    validateUser
+    validateUser,
+    getUserDetails,
+    deleteUser,
+    getAllUsers
 }
