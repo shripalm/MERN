@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Megrim&display=swap');
+
+*{
+  margin: 0px;
+  --textColor: green;
+  --activeColor: greenyellow;
+  --bgColor: #333;
+  --bgColor2: #222;
+  --shadowEffect: purple;
+  --wTextColor: #ccc;
+}
+
+body{
+  background-color: var(--bgColor);
+  color: var(--wTextColor);
+  font-family: 'Megrim', cursive;
+}
+
+::-webkit-scrollbar{
+  background-color: var(--bgColor);
+  border-radius: 9px;
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: var(--textColor);
+  border-radius: 9px;
+}
+
+#headContainer{
+  height: 60px;
+}
+
+#mainHeader{
+  line-height: 60px;
+  width: 100vw;
+  background-color: var(--bgColor2);
+  color: var(--textColor);
+  font-size: 18px;
+  font-weight: 600;
+  box-shadow: 0px 0px 2px var(--shadowEffect);
+  position: fixed;
+  top: 0px;
+  text-align: center;
+}
+
+#mainHeader > p {
+  display: inline-block;
+  margin: 0px;
+  padding: 0 30px;
+  cursor: pointer;
+}
+
+#mainHeader > p:hover {
+  color: var(--shadowEffect);
+}
+
+a{
+  color: inherit;
+  text-decoration: none;
+}
+
+#mainHeader p.active{
+  color: var(--activeColor);
+}
+
+.row{
+  max-width: 100vw !important;
+  margin: 0px;
+}
+
+.title{
+  font-size: 26px;
+  text-transform: uppercase;
+  font-weight: 400;
+}
