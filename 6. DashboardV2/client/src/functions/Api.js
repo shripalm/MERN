@@ -19,3 +19,7 @@ export const loginUser = async ({ email, password }) => {
 export const registerUser = async ({ userName, number, email, password }) => {
     return await req.post('/user/register', { userName, number, email, password })
 }
+
+export const getAllProductUser = async () => {
+    return await req.post('/user/listProducts', {})
+}

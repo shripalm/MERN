@@ -74,3 +74,20 @@ a{
   text-transform: uppercase;
   font-weight: 400;
 }
+
+.productList{
+  padding: 20px 0px;
+  text-align: center;
+  border-radius: 20px;
+}
+
+.productList img{
+  max-width: 95%;
+  height: auto;
+  border-radius: 20px;
+}
+
+.productList p{
+  text-align: justify !important;
+  padding: 0px 20px;
+}
