@@ -8,7 +8,7 @@ export default function HomeHeader({page}){
         <div id="headContainer">
             <div id="mainHeader">
                 <p className={((page === 'Home') ? 'active' : '')}><Link to="/">Home</Link></p>
-                {(! localStorage.getItem('bToken') ? <LoginRegNav page={page}/> : <LogoutNav /> )}
+                {(! localStorage.getItem('bToken') ? <LoginRegNav page={page}/> : <LogoutNav  page={page} /> )}
             </div>
         </div>
     )

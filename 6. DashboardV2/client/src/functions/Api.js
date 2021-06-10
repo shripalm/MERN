@@ -23,3 +23,11 @@ export const registerUser = async ({ userName, number, email, password }) => {
 export const getAllProductUser = async () => {
     return await req.post('/user/listProducts', {})
 }
+
+export const getAllOrderUser = async () => {
+    return await req.post('/user/viewMyOrders', {})
+}
+
+export const orderProduct = async ({pid, paymentMethod}) => {
+    return await req.post('/user/orderProduct', {pid, paymentMethod})
+}
